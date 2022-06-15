@@ -24,11 +24,17 @@ Run cellphy's help to make sure the program is working for your computer. Read t
 View the contents of the input file CRC24l.ToySet.phy. For this, you can use a GUI text editor (e.g., atom) or the command line.
 
 We will analize these data using the most general substitution model in CellPhy _GT16+F0_. This model assumes the data is known without error.  
-$ ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO --seed 2 --threads 1 --prefix model1
+
+```bash
+../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO --seed 2 --threads 1 --prefix model1
+```
 
 ### Runing cellphy using a genotype matrix (alignment) modeling single-cell sequencing errors
 Alternatively, we will analyze the data adding a single-cell sequencing error model _GT16+F0+E_.
-$ ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E --seed 2 --threads 1 --prefix model2
+
+```bash
+../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E --seed 2 --threads 1 --prefix model2
+```
 
 ### Explore the outputs
 Tree:
@@ -52,7 +58,9 @@ Take a look at the provided input file CRC24.ToySet.vcf.
 
 Run cellphy:
 
+```bash
 ../cellphy.sh RAXML --msa CRC24.ToySet.vcf --model GT16+FO --seed 2 --threads 1 --prefix data2 
+```
 
 <details><summary>Can you compare this model with our previous best-fit?</summary>
 <p>
@@ -63,7 +71,9 @@ No, you can't, since the data is different. We will continue with the other data
 ### Hypothesis testing
 Now that we know what model fits our data best, we will use  model to test the hypothesis that SNVs are evolving at different rates. For this, we will run an alternative model that incorporates site-heterogeneity called _GT16+F0+E+G_.
 
-$ ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E+G --seed 2 --threads 1 --prefix model3
+```bash
+../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E+G --seed 2 --threads 1 --prefix model3
+```
 
 <details><summary>Can we reject our null hypothesis that SNVs evolve at the same evolutionary rate?</summary>
 <p>
@@ -75,23 +85,28 @@ Yes. You can use an LRT or calculate the relative likelihood by comparing AICs.
 ### Bootstrapping the data to estimate the tree support
 Finally, we will perform a standard non-parametric bootstrap by re-sampling alignment columns and re-inferring trees for each bootstrap replicate. By default, CellPhy will automatically determine the optimal number of replicates (up to 1000), but here we will manually set the number of replicates to 100 in order to keep runtime reasonable.  
 
-$ ../cellphy.sh RAXML --bootstrap --msa CRC24.ToySet.vcf --model GT16+FO+E+G --seed 2 --threads 1 --bs-trees 100 --prefix bootstrap
+```bash
+../cellphy.sh RAXML --bootstrap --msa CRC24.ToySet.vcf --model GT16+FO+E+G --seed 2 --threads 1 --bs-trees 100 --prefix bootstrap
+```
 
 Now that we have the bootstrap trees, we can map the BS support values onto the (previously inferred) best-scoring ML tree:
+
+```bash
 ../cellphy.sh RAXML --support -tree model3.raxml.bestTree --bs-trees bootstrap.raxml.bootstraps --prefix final --threads 1
+```
 
 CellPhy will output a tree with support values (in NEWICK format) that can be visualized using any tree viewer software. Open it in figtree.
 
 
 <details><summary>Is the tree rooted?</summary>
 <p>
-No. Use the re-rooting option to root it using the healthy/normal tissue sample included.
+No, CellPhy estimates unrooted trees. Use the re-rooting option to root it using the healthy/normal tissue sample included.
 </p>
 </details>
 
 <details><summary>Is the tree strongly supported?</summary>
 <p>
-No. Remember, we are using a thinned dataset to execute things fast.
+No, the bootstrap support values are generally quite low (>80 are usually considered good). Remember, we are using a thinned dataset to execute things fast.
 </p>
 </details>
 
