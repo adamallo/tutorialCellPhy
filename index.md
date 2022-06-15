@@ -21,7 +21,7 @@ Run CellPhy's help to make sure the program is working for your computer. Read t
 ../cellphy.sh -h
 ```
 ### Runing CellPhy using a genotype matrix (aligment) without modeling single-cell sequencing errors
-View the contents of the input file CRC24l.ToySet.phy. For this, you can use a GUI text editor (e.g., atom) or the command line.
+View the contents of the input file _CRC24l.ToySet.phy_. For this, you can use a GUI text editor (e.g., atom) or the command line.
 
 We will analize these data using the most general substitution model in CellPhy _GT16+F0_. This model assumes the data is known without error.  
 
@@ -37,8 +37,9 @@ Alternatively, we will analyze the data adding a single-cell sequencing error mo
 ```
 
 ### Explore the outputs
-Tree:
-Parameters:
+Log: model1.raxml.log
+Tree: model1.raxml.bestTree
+Model: model1.raxml.bestModel
 
 
 ### Model selection
@@ -77,7 +78,10 @@ Now that we know what model fits our data best, we will use  model to test the h
 
 <details><summary>Can we reject our null hypothesis that SNVs evolve at the same evolutionary rate?</summary>
 <p>
-Yes. You can use an LRT or calculate the relative likelihood by comparing AICs.
+Yes. You can use an LRT or calculate the relative likelihood by comparing AICs. For example, in my execution, the relative likelihood would be:
+```bash
+perl -e "print exp((19014.886826 - 19210.530485)/2)"
+```
 </p>
 </details>
 
