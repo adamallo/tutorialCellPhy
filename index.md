@@ -15,12 +15,12 @@ In this tutorial, we will use the "expert mode" of CellPhy (`cellphy.sh RAXML` c
 ### Data
 We will use the example data distributed with the program and run the software from the `example` directory where sample input files reside. Thus, we will use the respective relative paths for all scripts (e.g., `../cellphy.sh` for the main script). This is a real single-cell SNV dataset thinned down to 500 SNVs.
 
-### Is cellphy working?
-Run cellphy's help to make sure the program is working for your computer. Read the output to get familiarized with the program's input options.
+### Is CellPhy working?
+Run CellPhy's help to make sure the program is working for your computer. Read the output to get familiarized with the program's input options.
 ```bash
 ../cellphy.sh -h
 ```
-### Runing cellphy using a genotype matrix (aligment) without modeling single-cell sequencing errors
+### Runing CellPhy using a genotype matrix (aligment) without modeling single-cell sequencing errors
 View the contents of the input file CRC24l.ToySet.phy. For this, you can use a GUI text editor (e.g., atom) or the command line.
 
 We will analize these data using the most general substitution model in CellPhy _GT16+F0_. This model assumes the data is known without error.  
@@ -29,7 +29,7 @@ We will analize these data using the most general substitution model in CellPhy 
 ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO --seed 2 --threads 1 --prefix model1
 ```
 
-### Runing cellphy using a genotype matrix (alignment) modeling single-cell sequencing errors
+### Runing CellPhy using a genotype matrix (alignment) modeling single-cell sequencing errors
 Alternatively, we will analyze the data adding a single-cell sequencing error model _GT16+F0+E_.
 
 ```bash
@@ -56,7 +56,7 @@ Probabilistic variant callers not only output the final variants but also the un
 
 Take a look at the provided input file CRC24.ToySet.vcf.
 
-Run cellphy:
+Run CellPhy:
 
 ```bash
 ../cellphy.sh RAXML --msa CRC24.ToySet.vcf --model GT16+FO --seed 2 --threads 1 --prefix data2 
@@ -111,6 +111,10 @@ No, the bootstrap support values are generally quite low (>80 are usually consid
 </details>
 
 For you convenience, CellPhy also provides a script called _support-map.R_ for plotting the support tree. Feel free to try to generate a pdf and svg figures.
+
+### Extra time?
+
+If you have extra time, follow the tutorial distributed with CellPhy _../doc/CellPhy-Tutorial.pdf_ to map mutations to the phylogenetic tree. 
 
 <!--
 
