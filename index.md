@@ -21,16 +21,16 @@ Run CellPhy's help to make sure the program is working for your computer. Read t
 ../cellphy.sh -h
 ```
 ### Runing CellPhy using a genotype matrix (aligment) without modeling single-cell sequencing errors
-View the contents of the input file _CRC24l.ToySet.phy_. For this, you can use a GUI text editor (e.g., atom) or the command line.
+View the contents of the input file `CRC24l.ToySet.phy`. For this, you can use a GUI text editor (e.g., atom) or the command line.
 
-We will analize these data using the most general substitution model in CellPhy _GT16+F0_. This model assumes the data is known without error.  
+We will analize these data using the most general substitution model in CellPhy `GT16+F0`. This model assumes the data is known without error.  
 
 ```bash
 ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO --seed 2 --threads 1 --prefix model1
 ```
 
 ### Runing CellPhy using a genotype matrix (alignment) modeling single-cell sequencing errors
-Alternatively, we will analyze the data adding a single-cell sequencing error model _GT16+F0+E_.
+Alternatively, we will analyze the data adding a single-cell sequencing error model `GT16+F0+E`.
 
 ```bash
 ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E --seed 2 --threads 1 --prefix model2
@@ -44,18 +44,18 @@ Model: model1.raxml.bestModel
 
 ### Model selection
 What model fits the data better?
-_Tip_: look in the output for terms related to model selection, e.g., likelihood, number of parameters, AIC, BIC. Feel free to ask me questions about it, or use your favorite internet search engine to take a quick look at the topic.
+`Tip`: look in the output for terms related to model selection, e.g., likelihood, number of parameters, AIC, BIC. Feel free to ask me questions about it, or use your favorite internet search engine to take a quick look at the topic.
 
 <details><summary>Answer</summary>
 <p>
-Comparing the AIC or BIC of the models will give you a quick and clear answer that the _GT16+F0+E_ fits this data better (lower value). Alternatively, you could use a likelihood ratio test since these models are nested. I would not expect you to know this last bit and is not necessary at this point.
+Comparing the AIC or BIC of the models will give you a quick and clear answer that the `GT16+F0+E` fits this data better (lower value). Alternatively, you could use a likelihood ratio test since these models are nested. I would not expect you to know this last bit and is not necessary at this point.
 </p>
 </details>
 
 ### Alternative data that incorporates variant calling uncertainty
 Probabilistic variant callers not only output the final variants but also the uncertainty of each call. CellPhy can incorporate these uncertainties in the phylogenetic tree estimation instead of using its single-cell sequencing error model. In order to run CellPhy this way, you will need to provide it with a VCF file that contains genotype likelihood data.
 
-Take a look at the provided input file CRC24.ToySet.vcf.
+Take a look at the provided input file `CRC24.ToySet.vcf`.
 
 Run CellPhy:
 
@@ -70,7 +70,7 @@ No, you can't, since the data is different. We will continue with the other data
 </details>
  
 ### Hypothesis testing
-Now that we know what model fits our data best, we will use  model to test the hypothesis that SNVs are evolving at different rates. For this, we will run an alternative model that incorporates site-heterogeneity called _GT16+F0+E+G_.
+Now that we know what model fits our data best, we will use  model to test the hypothesis that SNVs are evolving at different rates. For this, we will run an alternative model that incorporates site-heterogeneity called `GT16+F0+E+G`.
 
 ```bash
 ../cellphy.sh RAXML --msa CRC24.ToySet.phy --model GT16+FO+E+G --seed 2 --threads 1 --prefix model3
@@ -114,11 +114,11 @@ No, the bootstrap support values are generally quite low (>80 are usually consid
 </p>
 </details>
 
-For you convenience, CellPhy also provides a script called _support-map.R_ for plotting the support tree. Feel free to try to generate a pdf and svg figures.
+For you convenience, CellPhy also provides a script called `support-map.R` for plotting the support tree. Feel free to try to generate a pdf and svg figures.
 
 ### Extra time?
 
-If you have extra time, follow the tutorial distributed with CellPhy _../doc/CellPhy-Tutorial.pdf_ to map mutations to the phylogenetic tree. 
+If you have extra time, follow the tutorial distributed with CellPhy `../doc/CellPhy-Tutorial.pdf` to map mutations to the phylogenetic tree. 
 
 <!--
 
